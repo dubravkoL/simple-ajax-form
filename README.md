@@ -1,2 +1,2 @@
-# simple-ajax-form
-Class for submitting a simple forms via AJAX (jQuery)
+# Simple AJAX Form
+Class for submitting a simple form via AJAX (jQuery).
