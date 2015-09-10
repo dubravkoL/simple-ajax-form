@@ -2,6 +2,25 @@
 
 'use strict';
 
+var htmlEscape = (function() {
+    var entities = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        '/': '&#x2F;'
+    };
+
+    var regex = /[&<>"'\/]/g;
+
+    return function(string) {
+        return ('' + string).replace(regex, function(match) {
+            return entities[match];
+        });
+    };
+})();
+
 function SimpleAjaxForm(el, action, options) {
     this.options = $.extend({
         reset: true,
