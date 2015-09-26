@@ -52,7 +52,7 @@ function SimpleAjaxForm(el, action, options) {
         : el.find('form').first();
 
     // We'll inject
-    this.$messages = el.find('.form-messages').first();
+    this.$messages = el.find('.form-messages').not('noscript').first();
 
     this.registerEvent();
     this.scrollTopBuffer = 50;
@@ -123,6 +123,11 @@ SimpleAjaxForm.prototype.handleSuccess = function(responseBody, status, error) {
 
     if (this.options.reset) {
         this.$form[0].reset();
+    }
+
+    // Scroll to form messages
+    if (this.options.scrollToMessage) {
+        $('html, body').animate({scrollTop: this.$messages.offset().top - this.scrollTopBuffer});
     }
 
     this.$el.trigger('simpleajaxform.success', eventArgs);
