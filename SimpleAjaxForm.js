@@ -29,7 +29,9 @@ function SimpleAjaxForm(el, action, options) {
         success: null,
         failed: null,
         complete: null,
-        successMessage: 'Submission Successful. Thank you.'
+        successMessage: 'Submission Successful. Thank you.',
+        successMessageClass: 'form-success alert alert-success',
+        errorMessageClass: 'form-error alert alert-danger',
     }, options);
 
     // Make sure a jQuery instance was passed, and that we're dealing with
@@ -110,7 +112,7 @@ SimpleAjaxForm.prototype.handleSuccess = function(responseBody, status, error) {
         this.options.successMessage.apply(this, eventArgs);
     }
     else if (this.options.successMessage) {
-        this.$messages.append('<p class="form-success">' + this.options.successMessage + '</p>');
+        this.$messages.append('<p class="' + this.options.successMessageClass + '">' + this.options.successMessage + '</p>');
     }
 
     if ($.isFunction(this.options.success)) {
@@ -163,7 +165,7 @@ SimpleAjaxForm.prototype.generateErrors = function(messages) {
 
     for (var field in messages) {
         if (messages.hasOwnProperty(field)) {
-            html += '<p class="form-error">' + htmlEscape(messages[field]) + '</p>';
+            html += '<p class="' + this.options.errorMessageClass+ '">' + htmlEscape(messages[field]) + '</p>';
         }
     }
 
