@@ -29,14 +29,12 @@ function SimpleAjaxForm(el, action, options) {
         success: null,
         failed: null,
         complete: null,
-        successMessage: 'Submission Successful. Thank you.',
+        successMessage: 'Submission Successful. Thank you.'
     }, options);
 
     // Make sure a jQuery instance was passed, and that we're dealing with
     // just one element.
-    el = (el instanceof $)
-        ? el.first()
-        : $(el).first();
+    el = (el instanceof $) ? el.first() : $(el).first();
 
     this.$el = el;
 
@@ -47,9 +45,7 @@ function SimpleAjaxForm(el, action, options) {
     this.action = action;
 
     // Set the form to el, if it happens to be a <form>, or the first child <form>
-    this.$form = el.is('form')
-        ? el
-        : el.find('form').first();
+    this.$form = el.is('form') ? el : el.find('form').first();
 
     // We'll inject
     this.$messages = el.find('.form-messages').not('noscript').first();
@@ -72,7 +68,7 @@ SimpleAjaxForm.prototype.handleSubmit = function(event) {
         dataType: 'json',
         success: $.proxy(this.handleSuccess, this),
         error: $.proxy(this.handleError, this),
-        complete: $.proxy(this.handleComplete, this),
+        complete: $.proxy(this.handleComplete, this)
     };
 
     // Older browser won't support the FormData API, which it's required to do
