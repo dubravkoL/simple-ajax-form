@@ -25,6 +25,7 @@ function SimpleAjaxForm(el, action, options) {
     this.options = $.extend({
         reset: true,
         scrollToMessage: true,
+        blurSubmitOnSubmit: true,
         submit: null,
         success: null,
         failed: null,
@@ -153,6 +154,10 @@ SimpleAjaxForm.prototype.handleError = function(responseBody, status, error) {
 
 SimpleAjaxForm.prototype.handleComplete = function(responseBody, status, error) {
     var eventArgs = [this].concat(Array.prototype.slice.call(arguments));
+
+    if (this.options.blurSubmitOnSubmit) {
+        this.$el.find('[type=submit]').blur();
+    }
 
     if ($.isFunction(this.options.complete)) {
         this.options.complete.apply(this, eventArgs);
