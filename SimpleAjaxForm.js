@@ -138,7 +138,22 @@ SimpleAjaxForm.prototype.handleError = function(responseBody, status, error) {
     var eventArgs = [this].concat(Array.prototype.slice.call(arguments));
 
     var response = responseBody.responseJSON || {success: false, messages: ['An error was encountered']};
-    this.$messages.append(this.generateErrors(response.messages));
+
+    var responseData = JSON.parse(JSON.stringify(response));
+    var messages;
+
+    if (response.messages) {
+        messages = response.messages;
+    }
+    else if (response.errors) {
+        messages = response.errors;
+    }
+    else {
+        messages = responseData;
+        delete messages.success;
+    }
+
+    this.$messages.append(this.generateErrors(messages));
 
     if ($.isFunction(this.options.failed)) {
         this.options.failed.apply(this, eventArgs);
