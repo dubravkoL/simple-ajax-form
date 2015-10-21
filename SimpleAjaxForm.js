@@ -54,6 +54,7 @@ function SimpleAjaxForm(el, action, options) {
 
     this.registerEvent();
     this.scrollTopBuffer = 50;
+    this.scrollTarget = $('html, body');
 }
 
 SimpleAjaxForm.prototype.registerEvent = function() {
@@ -125,7 +126,7 @@ SimpleAjaxForm.prototype.handleSuccess = function(responseBody, status, error) {
 
     // Scroll to form messages
     if (this.options.scrollToMessage) {
-        $('html, body').animate({scrollTop: this.$messages.offset().top - this.scrollTopBuffer});
+        this.scrollTarget.animate({scrollTop: this.$messages.offset().top - this.scrollTopBuffer});
     }
 
     this.$el.trigger('simpleajaxform.success', eventArgs);
@@ -144,7 +145,7 @@ SimpleAjaxForm.prototype.handleError = function(responseBody, status, error) {
 
     // Scroll to form messages
     if (this.options.scrollToMessage) {
-        $('html, body').animate({scrollTop: this.$messages.offset().top - this.scrollTopBuffer});
+        this.scrollTarget.animate({scrollTop: this.$messages.offset().top - this.scrollTopBuffer});
     }
 
     this.$el.trigger('simpleajaxform.error', eventArgs);
