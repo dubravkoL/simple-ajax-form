@@ -186,7 +186,14 @@ SimpleAjaxForm.prototype.generateErrors = function(messages) {
 
     for (var field in messages) {
         if (messages.hasOwnProperty(field)) {
-            html += '<p class="' + this.options.errorMessageClass+ '">' + htmlEscape(messages[field]) + '</p>';
+            if ($.isArray(messages[field])) {
+                for (var i = 0; i < messages[field].length; i++) {
+                    html += '<p class="' + this.options.errorMessageClass+ '">' + htmlEscape(messages[field][i]) + '</p>';
+                }
+            }
+            else {
+                html += '<p class="' + this.options.errorMessageClass+ '">' + htmlEscape(messages[field]) + '</p>';
+            }
         }
     }
 
